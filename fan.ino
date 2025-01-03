@@ -1,4 +1,5 @@
 #include "DHT.h"
+
 #define DHTPIN 4
 #define DHTTYPE DHT11
 const int = 0; // pin connected to the relay
@@ -10,19 +11,19 @@ void setup() {
   Serial.begin(9600);
   dht.begin();
 
-  pinMode(Reray1, OUTPUT);
+  pinMode(Relay1, OUTPUT);
   pinMode(button, INPUT_PULLUP); // set button pin as input withinternal pull-up resistor
 
-  digitalWrite(Relay1, HIGH);
+  digitalWrite(Relay1, HIGH); // turn off the relay intially (assuming HIGH is off)
 }
 
 void loop() {
 // read temp
-  float tempc = dht.readTemperature();
+  float tempC = dht.readTemperature();
    Serial.println("Temp: );
-   Serial.println(tempc);
+   Serial.println(tempC);
    
-// button stage
+// button state
 int buttonstate = digitalRead(button);
 
 //check if tempurature reading failed
@@ -33,8 +34,8 @@ if (isnan(tempC)) {
 } 
 
 //control the relay based on temperature and button state
-if (tempC > 20.00 || buttonState == LOW) { //button pressed assuming active-low button
-  digitalWriteZRelay1, LOW); //turn relay ON
+if (tempC > 20.00 || buttonState == LOW) { //button pressed (assuming active-low button)
+  digitalWrite(Relay1, LOW); //turn relay ON
   delay(10000);
 }
 else {
